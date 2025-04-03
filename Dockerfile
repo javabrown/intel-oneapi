@@ -3,29 +3,35 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ONEAPI_ROOT=/opt/intel/oneapi
 
-# Install base tools
+# 1. Install basic development tools
 RUN apt-get update && apt-get install -y \
-    build-essential wget curl gnupg lsb-release \
-    python3 python3-pip python3-dev git cmake \
-    libx11-dev libxtst6 libnss3 libasound2 \
-    software-properties-common && apt-get clean
+    build-essential curl gnupg lsb-release python3 python3-pip git cmake \
+    libx11-dev libxtst6 libnss3 libasound2 software-properties-common && \
+    apt-get clean
 
-# Install oneAPI repo
-RUN wget https://apt.repos.intel.com/oneapi/intel-oneapi-repo.sh && \
-    bash intel-oneapi-repo.sh && \
-    apt-get update && \
-    apt-get install -y intel-oneapi-dpcpp-compiler intel-oneapi-runtime
+# 2. Add Intel's latest GPG key
+RUN curl -fsSL "https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB" \
+    | gpg --dearmor -o /usr/share/keyrings/oneapi-archive-keyring.gpg
 
-# Install JupyterLab
-RUN pip3 install jupyterlab
+# 3. Add Intel's oneAPI APT repository
+RUN echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
+    > /etc/apt/sources.list.d/oneAPI.list
 
-# Set environment
-RUN echo "source /opt/intel/oneapi/setvars.sh" >> ~/.bashrc
+# 4. Install the full Intel oneAPI Base Toolkit (includes DPC++, MKL, TBB, etc.)
+RUN apt-get update && apt-get install -y intel-basekit
+
+# 5. Install JupyterLab
+RUN pip3 install --no-cache-dir jupyterlab
+
+# 6. Auto-source oneAPI environment on shell login
+RUN echo "source /opt/intel/oneapi/setvars.sh --force" >> /root/.bashrc
+
+# 7. Set default shell and workspace
 SHELL ["/bin/bash", "-c"]
-
 WORKDIR /workspace
 
+# 8. Expose Jupyter port
 EXPOSE 8888
 
+# 9. Launch JupyterLab
 CMD jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
-
