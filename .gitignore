@@ -1,0 +1,70 @@
+# === General ===
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv
+.envrc
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# === C++ / DPC++ ===
+*.o
+*.out
+*.a
+*.so
+*.exe
+*.bin
+*.obj
+*.dSYM/
+*.vscode/
+
+# === Intel oneAPI / DPC++ cache ===
+*.map
+*.lst
+*.ii
+*.mod
+*.d
+*.dep
+
+# === Jupyter and notebooks ===
+.ipynb_checkpoints/
+*.ipynb~
+
+# === Data ===
+data/*.csv
+data/*.json
+data/*.jsonl
+data/*.txt
+data/*.zip
+data/*.tar.gz
+data/*.db
+data/*.parquet
+data/tmp/
+
+# === Logs ===
+logs/
+*.log
+
+# === IDEs and Editors ===
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# === OS Files ===
+.DS_Store
+ehthumbs.db
+Icon?
+
