@@ -68,3 +68,14 @@ logs/
 ehthumbs.db
 Icon?
 
+# Ignore models, checkpoints, cache
+models/
+*.bin
+*.pt
+*.ckpt
+*.safetensors
+
+# Ignore other big or system files
+*.log
+__pycache__/
+.ipynb_checkpoints/

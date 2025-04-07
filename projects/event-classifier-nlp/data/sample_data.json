@@ -1,0 +1,5 @@
+[
+  {"text": "Apple released its Q2 earnings today.", "label": "Earnings"},
+  {"text": "Tesla filed for a stock split.", "label": "Stock Split"},
+  {"text": "Google acquired Fitbit for .1 billion.", "label": "M&A"}
+]

@@ -1,5 +1,6 @@
 #include <CL/sycl.hpp>
 #include <iostream>
+#include <thread>
 
 using namespace sycl;
 
@@ -16,6 +17,10 @@ int main() {
                   << q.get_device().get_info<info::device::vendor>() << "\n";
         std::cout << "Driver version: "
                   << q.get_device().get_info<info::device::driver_version>() << "\n";
+
+        std::cout << "CPU has " << std::thread::hardware_concurrency() << " threads\n";
+
+
     }
     catch (const sycl::exception& e) {
         std::cerr << "SYCL exception: " << e.what() << "\n";

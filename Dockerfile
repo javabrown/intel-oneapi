@@ -20,6 +20,9 @@ RUN echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https:/
 # 4. Install the full Intel oneAPI Base Toolkit (includes DPC++, MKL, TBB, etc.)
 RUN apt-get update && apt-get install -y intel-basekit
 
+# 4-1. Install libcurl installed
+RUN apt-get update && apt-get install libcurl4-openssl-dev
+
 # 5. Install JupyterLab
 RUN pip3 install --no-cache-dir jupyterlab
 
